@@ -1,0 +1,11 @@
+
+
+.Stock {
+    display: grid;
+    gap: 10px;
+    grid-template-columns: repeat(4, 200px);
+}
+
+.Stock h1 {
+    background-color: aliceblue;
+}

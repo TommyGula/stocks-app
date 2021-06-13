@@ -1,11 +1,26 @@
-
-
-.Stock {
-    display: grid;
-    gap: 10px;
-    grid-template-columns: repeat(4, 200px);
+.StockList {
+    text-align: center;
+    display: flex;
+    justify-content: center;
 }
 
-.Stock h1 {
-    background-color: aliceblue;
+.StockList_table {
+    border: none;
+    border-spacing: 0;
+}
+
+tbody {
+    text-align: center;
+}
+
+td, th {
+    padding: 3px 5px;
+}
+
+td {
+    border-bottom: 0.5px solid gray;
+}
+
+th {
+    border-bottom: 3px solid gray;
 }

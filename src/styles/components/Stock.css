@@ -1,0 +1,8 @@
+
+.Stock_name {
+    font-weight: bolder;
+}
+
+.Stock:hover {
+    background-color: rgba(202, 221, 178, 0.199);
+}

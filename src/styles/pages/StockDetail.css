@@ -1,0 +1,46 @@
+
+.StockDetail_child {
+    border-bottom: 1px solid gray;
+    padding: 20px 0;
+}
+
+.Section_header {
+    display: flex;
+    align-items: center;
+}
+
+.StockDetail_child img {
+    height: 40px;
+    margin: 0 10px;
+}
+
+.index {
+    display: flex;
+    justify-content: space-between;
+}
+
+.index_logo {
+    display: flex;
+    align-items: flex-end;
+}
+
+.bigger {
+    font-size: 60px;
+}
+
+.index_logo img {
+    height: 60px;
+}
+
+.index_price {
+    display: grid;
+    grid-gap: 10px;
+    grid-template-columns: auto auto;
+    align-items: end;
+}
+
+.no-button {
+    background-color: white;
+    border: none;
+    cursor: pointer;
+}

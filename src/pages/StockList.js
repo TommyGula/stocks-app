@@ -6,18 +6,16 @@ import Stock from '../components/Stock';
 
 const StockList = () => {
     const stocks = ['AAPL']
-    //const stocks = ['AAPL', 'INTC', 'BIIB', 'VZ', 'KO', 'AMZN']
+    //const stocks = ['AAPL', 'INTC', 'BIIB', 'VZ', 'KO', 'GOOG']
     return(
         <div className="StockList">
             <table className="StockList_table">
                 <thead>
                     <tr>
+                        <th>LOGO</th>
                         <th>TICKER</th>
-                        <th>REVENUE</th>
-                        <th>GROSS PROFIT</th>
-                        <th>OPERATING INCOME</th>
-                        <th>NET INCOME</th>
-                        <th>EPS</th>
+                        <th>PRICE</th>
+                        <th>VAR %</th>
                         <th>INTRINSIC VALUE</th>
                         <th>DETALLE</th>
                     </tr>

@@ -9,44 +9,53 @@ const Stock = (props) => {
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(false);
     const [data, setData] = useState(undefined);
-    //const [data2, setData2] = useState(undefined);
 
     const stock = props.stock;
     const yearBack = 0;
     const BPE = 15;
-    const KEY = '66780bf1fc356234f0a38742f8313206'
+    //const KEY = '66780bf1fc356234f0a38742f8313206';
+    const KEY = 'demo'
+
+    const api1 = `https://financialmodelingprep.com/api/v3/profile/${stock}?apikey=${KEY}`;
+    const api2 = `https://financialmodelingprep.com/api/v3/income-statement/${stock}?limit=120&apikey=${KEY}`
+    const urls = [api1, api2]
 
     useEffect(
         () => {
-            fetch(`https://financialmodelingprep.com/api/v3/income-statement/${stock}?limit=5&apikey=demo`)
-                .then(res => res.json())
-                .then(stockData => {
-                    setData(stockData);
-                    setLoading(false)
-                    console.log(stockData)
-                })
-/*                 .then(
-                    fetch(`https://financialmodelingprep.com/api/v3/quote/${stock}?apikey=demo`)
-                        .then(res => res.json())
-                        .then(stockData2 => {
-                            setLoading(false)
-                            setData2(stockData2);
-                        })
-                        .catch(err => {
-                            setLoading(false)
-                            setError(true)
-                            return err
-                        })
-                ) */
-                .catch(err => {
-                    setLoading(false)
-                    setError(true)
-                })
+            const data = getAllUrls(urls);
+            data.then(data => {
+                setData(data)
+                setLoading(false)
+                console.log(data)
+            }).catch(err => {
+                setLoading(false)
+                setError(true)
+            })
         },
+
         []
     )
 
-    if (loading || !data) {
+    async function getAllUrls(urls) {
+        try {
+            var data = await Promise.all(
+                urls.map(
+                    url =>
+                        fetch(url).then(
+                            (response) => response.json()
+                        )
+                        ));
+/*             console.log(data) */
+            return data
+    
+        } catch (error) {
+            console.log(error)
+    
+            throw (error)
+        }
+    }
+
+    if (loading) {
         return(
             <Loader/>
         )
@@ -61,20 +70,29 @@ const Stock = (props) => {
         return (
 
             <tr className="Stock">
+                <td><img src={data[0][yearBack].image} alt="" /></td>
                 <td className="Stock_name">{stock}</td>
-                {/* <td>$ {data2[0].price}</td> */}
-                <td>$ {data[yearBack].revenue}</td>
-                <td>$ {data[yearBack].grossProfit}</td>
-                <td>$ {data[yearBack].operatingIncome}</td>
-                <td>$ {data[yearBack].netIncome}</td>
-                <td>$ {data[yearBack].eps}</td>
-                <td>$ {
-                        (data[yearBack].eps * (BPE + 2 * ((data[yearBack].netIncome / data[yearBack + 4].netIncome) ** (1 / 5))) * 4.4) / 2.96
+                <td>$ {data[0][yearBack].price}</td>
+                {
+                    data[0][yearBack].changes > 0
+                        ? <td className="Higher">{data[0][yearBack].changes} %</td>
+                        : <td className="Lower">{data[0][yearBack].changes} %</td>
+                }
+                    {
+                        ((data[1][yearBack].eps * (BPE + 2 * ((data[1][yearBack].netIncome / data[1][yearBack + 4].netIncome) ** (1 / 5))) * 4.4) / 2.96).toFixed(2) > data[0][yearBack].price
+                            ? <td className="Higher">
+                                $ {((data[1][yearBack].eps * (BPE + 2 * ((data[1][yearBack].netIncome / data[1][yearBack + 4].netIncome) ** (1 / 5))) * 4.4) / 2.96).toFixed(2)}
+                            </td>
+                            : <td className="Lower">
+                                $ {((data[1][yearBack].eps * (BPE + 2 * ((data[1][yearBack].netIncome / data[1][yearBack + 4].netIncome) ** (1 / 5))) * 4.4) / 2.96).toFixed(2)}
+                            </td>
                     }
+                <td>
+                    <button className="button-1">
+                        <Link to={"/stock/" + stock}>VER DETALLE 
+                        </Link>
+                    </button>
                 </td>
-                <Link to={"/stock/" + stock}>
-                    <td>Ver detalle</td>
-                </Link>
             </tr>
         )
     }

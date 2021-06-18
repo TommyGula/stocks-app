@@ -1,0 +1,54 @@
+.Header {
+    height: 80px;
+    background: linear-gradient(to bottom right, rgb(61, 61, 61), rgb(107, 107, 107));
+    color: white;
+    box-shadow: 0 0 7px 0 gray;
+    position: relative;
+    z-index: 1;
+}
+
+.Header_container {
+    display: grid;
+    grid-template-columns: 200px auto 150px;
+    justify-content: space-between;
+    max-width: 900px;
+    height: 100%;
+    margin: auto;
+}
+
+.Header_left, .Header_right, .Header_search, a {
+    display: flex;
+    align-items: center;
+}
+
+.Header_left img, .Header_right img {
+    width: 40px;
+    height: 40px;
+    margin: 10px;
+}
+
+.Header_search input {
+    width: 500px;
+    font-size: 15px;
+    padding: 5px 10px;
+    border-radius: 10px;
+    border: none;
+}
+
+.Header_right {
+    justify-self: flex-end;
+}
+
+.Header_search input:focus {
+    outline: none;
+}
+
+.LogIn {
+    font-weight: light;
+    text-decoration: underline;
+    cursor: pointer;
+}
+
+.Header a {
+    padding: 0;
+}

@@ -6,3 +6,14 @@
 .Stock:hover {
     background-color: rgba(202, 221, 178, 0.199);
 }
+
+.Stock td img {
+    height: 40px;
+}
+
+.Stock td {
+    height: 100%;
+    font-size: 20px;
+    font-weight: bolder;
+}
+

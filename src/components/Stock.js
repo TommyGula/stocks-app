@@ -13,8 +13,8 @@ const Stock = (props) => {
     const stock = props.stock;
     const yearBack = 0;
     const BPE = 15;
-    //const KEY = '66780bf1fc356234f0a38742f8313206';
-    const KEY = 'demo'
+    const KEY = '66780bf1fc356234f0a38742f8313206';
+    //const KEY = 'demo'
 
     const api1 = `https://financialmodelingprep.com/api/v3/profile/${stock}?apikey=${KEY}`;
     const api2 = `https://financialmodelingprep.com/api/v3/income-statement/${stock}?limit=120&apikey=${KEY}`
@@ -55,7 +55,7 @@ const Stock = (props) => {
         }
     }
 
-    if (loading) {
+    if (loading && !data) {
         return(
             <Loader/>
         )

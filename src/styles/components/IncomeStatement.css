@@ -1,10 +1,7 @@
-
 .key {
     max-width: 150px;
     overflow: hidden;
     border-bottom: 1px solid gray;
-    border-right: 3px solid gray;
-    background-color: rgba(146, 163, 219, 0.199)
 }
 
 tr {

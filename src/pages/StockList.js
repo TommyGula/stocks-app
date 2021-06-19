@@ -5,8 +5,8 @@ import '../styles/pages/StockList.css';
 import Stock from '../components/Stock';
 
 const StockList = () => {
-    const stocks = ['AAPL']
-    //const stocks = ['AAPL', 'INTC', 'BIIB', 'VZ', 'KO', 'GOOG']
+    //const stocks = ['AAPL']
+    const stocks = ['AAPL', 'INTC', 'BIIB', 'VZ', 'KO', 'GOOG']
     return(
         <div className="StockList">
             <table className="StockList_table">

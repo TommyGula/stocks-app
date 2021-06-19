@@ -49,6 +49,10 @@ tbody {
     text-align: center;
 }
 
+.Stock:hover, .Line:hover {
+    background-color: rgba(202, 221, 178, 0.199);
+}
+
 td, th {
     padding: 3px 5px;
 }

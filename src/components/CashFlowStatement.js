@@ -21,8 +21,8 @@ const CashFlowStatement = (props) => {
         () => {
             getCashFlowStatement(ticker, array.length)
             .then(response=>{
-                setData(response.data);
-                setLoading(false);
+                setData(response.data)
+                setLoading(false)
             })
             .catch(error => {
                 setLoading(false);
@@ -35,68 +35,61 @@ const CashFlowStatement = (props) => {
 
     console.log(data)
 
-    if (state === 'close') {
+    if (loading === true && data === undefined) {
         return(
-            <div className="CashFlowStatement"></div>
+            <Loader/>
+        )
+    }
+
+    if (error) {
+        return(
+            <div className="Error">Error!</div>
         )
     } else {
-        
-        if (loading === true && data === undefined) {
-            return(
-                <Loader/>
-            )
-        }
-
-        if (error) {
-            return(
-                <div className="Error">Error!</div>
-            )
-        } else {
-            return(
-                <div className="CashFlowStatement">
-                    <table>
-                        <thead>
-                            <tr>
-                                <th>Date</th>
-                                {array.map((year) => {
-                                    return(
-                                        <th>{data[year].date}</th>
-                                    )
-                                })}
-                            </tr>
-                        </thead>
-                            {
-                            Object.keys(data[0]).map((key, value) => {
-                                if (notShowed.includes(key) === false) {
-                                    return(
-                                        <tr>
-                                            <th className="key">{key.replace(/([A-Z])/g, ' $1').replace(/^./, function(str) {
-              return str.toUpperCase();
-            })}</th>
-                                            {array.map((year) => {
-                                                if (decimalKeys.includes(key)) {
-                                                    return(
-                                                        <td>{data[year][key].toFixed(2)}</td>
-                                                    )
-                                                } else {
-                                                    return(
-                                                        <td>{data[year][key] / 1000000}</td>
-                                                    )
-                                                }
-                                            })}
-                                        </tr>
-                                    )
-                                }
+        return(
+            <div className="CashFlowStatement">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Date</th>
+                            {array.map((year) => {
+                                return(
+                                    <th>{data[year].date}</th>
+                                )
                             })}
+                        </tr>
+                    </thead>
+                        {
+                        Object.keys(data[0]).map((key, value) => {
+                            if (notShowed.includes(key) === false) {
+                                return(
+                                    <tr className="Line">
+                                        <th className="key">{key.replace(/([A-Z])/g, ' $1').replace(/^./, function(str) {
+          return str.toUpperCase();
+        })}</th>
+                                        {array.map((year) => {
+                                            if (decimalKeys.includes(key)) {
+                                                return(
+                                                    <td>{data[year][key].toFixed(2)}</td>
+                                                )
+                                            } else {
+                                                return(
+                                                    <td>{data[year][key] / 1000000}</td>
+                                                )
+                                            }
+                                        })}
+                                    </tr>
+                                )
+                            }
+                        })}
 
-                        <tbody>
-                        </tbody>
-                    </table>
-                </div>
-            )
-        }
-
+                    <tbody>
+                    </tbody>
+                </table>
+            </div>
+        )
     }
+
 };
 
 export default CashFlowStatement;

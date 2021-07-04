@@ -82,4 +82,10 @@
     border: none;
     background-color: white;
 }
+
+.Loader {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+}
   

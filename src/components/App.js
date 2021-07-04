@@ -3,16 +3,17 @@ import { BrowserRouter, Route } from 'react-router-dom';
 
 import StockList from '../pages/StockList';
 import StockDetail from '../pages/StockDetail';
+import HeaderUI from '../components/HeaderUI';
 import Header from '../components/Header';
 import Container from '../components/Container';
 
 function App () {
     return(
         <BrowserRouter>
-            <Header/>
+            <HeaderUI/>
             <Container>
                 <Route path='/' exact component={StockList}/>
-                <Route path='/stock/:ticker' exact component={StockDetail}/>
+                <Route path='/:ticker' exact component={StockDetail}/>
             </Container>
         </BrowserRouter>
     )

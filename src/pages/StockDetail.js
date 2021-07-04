@@ -7,10 +7,10 @@ import { getProfile } from '../Service/StockService';
 import '../styles/pages/StockDetail.css';
 
 const StockDetail = (props) => {
-    const ticker = props.match.params.ticker
-    const [data, setData] = useState(undefined)
-    const [loading, setLoading] = useState(true)
-    const [error, setError] = useState(false)
+    const [ticker, setTicker] = useState(props.match.params.ticker);
+    const [data, setData] = useState(undefined);
+    const [loading, setLoading] = useState(true);
+    const [error, setError] = useState(false);
 
     useEffect(
         () => {
@@ -28,7 +28,7 @@ const StockDetail = (props) => {
         []
     )
 
-    if (loading && data === undefined) {
+    if (loading && !data) {
         return(
             <Loader/>
         )

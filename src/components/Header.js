@@ -5,6 +5,7 @@ import '../styles/components/Header.css';
 
 import Logo from '../static/Logo.svg';
 import User from '../static/User.svg';
+import Button from '@material-ui/core/Button';
 
 const Header = () => {
     return(
@@ -18,6 +19,9 @@ const Header = () => {
                 </div>
                 <div className="Header_search">
                     <input type="text" placeholder="Buscar acción" />
+                    <Button variant="contained" color="primary" >
+                        BUSCAR
+                    </Button>
                 </div>
                 <div className="Header_right">
                     <h3 className="LogIn">Log In</h3>

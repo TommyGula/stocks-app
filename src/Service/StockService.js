@@ -18,3 +18,34 @@ export function getBalanceSheet(ticker, limit) {
 export function getCashFlowStatement(ticker, limit) {
     return instance.get(`cash-flow-statement/${ticker}?apikey=${KEY}&limit=${limit}`)
 }
+
+export function getSymbols() {
+    return instance.get(`stock/list?limit=20&apikey=${KEY}`)
+}
+
+export function getProfileAndIncomeStatement(ticker) {
+    const api1 = `https://financialmodelingprep.com/api/v3/profile/${ticker}?apikey=${KEY}`;
+    const api2 = `https://financialmodelingprep.com/api/v3/income-statement/${ticker}?limit=120&apikey=${KEY}`
+    const urls = [api1, api2]
+
+    return getAllUrls(urls);
+}
+
+async function getAllUrls(urls) {
+    try {
+        var data = await Promise.all(
+            urls.map(
+                url =>
+                    fetch(url).then(
+                        (response) => response.json()
+                    )
+                    ));
+/*             console.log(data) */
+        return data
+
+    } catch (error) {
+        console.log(error)
+
+        throw (error)
+    }
+}

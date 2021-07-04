@@ -40,7 +40,6 @@ const Profile = (props) => {
     } else {
         return(
             <div className="Profile">
-                    <h1>Company Profile</h1>
                     <div className="info_container">
                         <div className="info_left">
                             <p>

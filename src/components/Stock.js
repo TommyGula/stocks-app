@@ -1,28 +1,25 @@
 import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
+import { getProfileAndIncomeStatement } from '../Service/StockService';
 
 import '../styles/components/Stock.css';
 
 import Loader from '../components/Loader';
+import Button from '@material-ui/core/Button';
 
 const Stock = (props) => {
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(false);
     const [data, setData] = useState(undefined);
 
+
     const stock = props.stock;
     const yearBack = 0;
     const BPE = 15;
-    const KEY = '66780bf1fc356234f0a38742f8313206';
-    //const KEY = 'demo'
-
-    const api1 = `https://financialmodelingprep.com/api/v3/profile/${stock}?apikey=${KEY}`;
-    const api2 = `https://financialmodelingprep.com/api/v3/income-statement/${stock}?limit=120&apikey=${KEY}`
-    const urls = [api1, api2]
 
     useEffect(
         () => {
-            const data = getAllUrls(urls);
+            const data = getProfileAndIncomeStatement(stock)
             data.then(data => {
                 setData(data)
                 setLoading(false)
@@ -36,24 +33,6 @@ const Stock = (props) => {
         []
     )
 
-    async function getAllUrls(urls) {
-        try {
-            var data = await Promise.all(
-                urls.map(
-                    url =>
-                        fetch(url).then(
-                            (response) => response.json()
-                        )
-                        ));
-/*             console.log(data) */
-            return data
-    
-        } catch (error) {
-            console.log(error)
-    
-            throw (error)
-        }
-    }
 
     if (loading && !data) {
         return(
@@ -88,10 +67,10 @@ const Stock = (props) => {
                             </td>
                     }
                 <td>
-                    <button className="button-1">
+                    <Button size="medium" variant="contained" color="primary">
                         <Link to={"/stock/" + stock}>VER DETALLE 
                         </Link>
-                    </button>
+                    </Button>
                 </td>
             </tr>
         )

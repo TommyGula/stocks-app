@@ -5,8 +5,6 @@ import IncomeStatement from '../components/IncomeStatement';
 import BalanceSheet from '../components/BalanceSheet';
 import CashFlowStatement from '../components/CashFlowStatement';
 
-import '../styles/components/NavDetails.css';
-
 const NavDetails = (props) => {
     const state = props.state
     const ticker = props.ticker;

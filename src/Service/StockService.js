@@ -1,9 +1,10 @@
 import instance from "../Config/Axios";
 
-const KEY = '66780bf1fc356234f0a38742f8313206';
-//const KEY = 'demo';
+//const KEY = '66780bf1fc356234f0a38742f8313206';
+//const KEY = '56be73829f1161d68cdc3a5d3769e6f0';
+const KEY = 'demo';
 
-export function getProfile(ticker) {
+export async function getProfile(ticker) {
     return instance.get(`profile/${ticker}?apikey=${KEY}`)
 }
 
@@ -20,7 +21,7 @@ export function getCashFlowStatement(ticker, limit) {
 }
 
 export function getSymbols() {
-    return instance.get(`stock/list?limit=20&apikey=${KEY}`)
+    return instance.get(`stock/list?&apikey=${KEY}`)
 }
 
 export function getProfileAndIncomeStatement(ticker) {
@@ -39,13 +40,10 @@ async function getAllUrls(urls) {
                     fetch(url).then(
                         (response) => response.json()
                     )
-                    ));
-/*             console.log(data) */
+            ));
         return data
-
     } catch (error) {
         console.log(error)
-
         throw (error)
     }
 }

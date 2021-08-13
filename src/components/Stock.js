@@ -1,30 +1,32 @@
 import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
-import { getProfileAndIncomeStatement } from '../Service/StockService';
+import { getProfile } from '../Service/StockService';
 
 import '../styles/components/Stock.css';
 
+import Logo from '../static/Logo.svg';
 import Loader from '../components/Loader';
 import Button from '@material-ui/core/Button';
 
 const Stock = (props) => {
     const [loading, setLoading] = useState(true);
-    const [error, setError] = useState(false);
+    const [error, setError] = useState(true);
     const [data, setData] = useState(undefined);
 
 
     const stock = props.stock;
     const yearBack = 0;
-    const BPE = 15;
+    const BPE = 8.5;
 
     useEffect(
         () => {
-            const data = getProfileAndIncomeStatement(stock)
+            const data = getProfile(stock)
             data.then(data => {
-                setData(data)
+                setData(data.data)
+                console.log(data.data)
                 setLoading(false)
-                console.log(data)
             }).catch(err => {
+                console.log(err)
                 setLoading(false)
                 setError(true)
             })
@@ -49,15 +51,15 @@ const Stock = (props) => {
         return (
 
             <tr className="Stock">
-                <td><img src={data[0][yearBack].image} alt="" /></td>
+                <td><img src={data[yearBack].image || Logo} alt="" /></td>
                 <td className="Stock_name">{stock}</td>
-                <td>$ {data[0][yearBack].price}</td>
+                <td>$ {data[yearBack].price}</td>
                 {
-                    data[0][yearBack].changes > 0
-                        ? <td className="Higher">{data[0][yearBack].changes} %</td>
-                        : <td className="Lower">{data[0][yearBack].changes} %</td>
+                    data[yearBack].changes > 0
+                        ? <td className="Higher">{data[yearBack].changes} %</td>
+                        : <td className="Lower">{data[yearBack].changes} %</td>
                 }
-                    {
+{/*                     {
                         ((data[1][yearBack].eps * (BPE + 2 * ((data[1][yearBack].netIncome / data[1][yearBack + 4].netIncome) ** (1 / 5))) * 4.4) / 2.96).toFixed(2) > data[0][yearBack].price
                             ? <td className="Higher">
                                 $ {((data[1][yearBack].eps * (BPE + 2 * ((data[1][yearBack].netIncome / data[1][yearBack + 4].netIncome) ** (1 / 5))) * 4.4) / 2.96).toFixed(2)}
@@ -65,7 +67,7 @@ const Stock = (props) => {
                             : <td className="Lower">
                                 $ {((data[1][yearBack].eps * (BPE + 2 * ((data[1][yearBack].netIncome / data[1][yearBack + 4].netIncome) ** (1 / 5))) * 4.4) / 2.96).toFixed(2)}
                             </td>
-                    }
+                    } */}
                 <td>
                     <Button size="medium" variant="contained" color="primary">
                         <Link to={"/stock/" + stock}>VER DETALLE 

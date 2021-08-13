@@ -7,7 +7,7 @@ import { getProfile } from '../Service/StockService';
 import '../styles/pages/StockDetail.css';
 
 const StockDetail = (props) => {
-    const [ticker, setTicker] = useState(props.match.params.ticker);
+    const ticker = props.match.params.ticker;
     const [data, setData] = useState(undefined);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(false);
@@ -16,11 +16,13 @@ const StockDetail = (props) => {
         () => {
             getProfile(ticker)
             .then(response=>{
+                console.log(response.data[0]);
                 setData(response.data[0]);
                 setLoading(false);
             })
             .catch(error => {
                 setLoading(false);
+                console.log("ESTE ERROR"+error)
                 setError(true)
             })
         },
@@ -28,7 +30,7 @@ const StockDetail = (props) => {
         []
     )
 
-    if (loading && !data) {
+    if (loading || !data) {
         return(
             <Loader/>
         )

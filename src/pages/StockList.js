@@ -6,15 +6,29 @@ import '../styles/pages/StockList.css';
 import Stock from '../components/Stock';
 
 const StockList = () => {
-    const [stocks, setStocks] = useState(['AAPL'])
-    const [loading, setLoading] = useState(true)
-    //const stocks = ['AAPL', 'INTC', 'BIIB', 'VZ', 'KO', 'GOOG']
+    //const [stocks, setStocks] = useState(undefined)
+    const [loading, setLoading] = useState(false)
+    //const stocks = ['AAPL']
+    
+    const stocks = [
+        {
+            symbol:"AAPL"
+        },
+/*         {
+            symbol:"SPY"
+        },
+        {
+            symbol:"MSFT"
+        },
+        {
+            symbol:"BIIB"
+        }, */
+    ]
 
-    useEffect(
+/*     useEffect(
         () => {
             getSymbols()
             .then(response => {
-                console.log(response)
                 setStocks(response.data)
                 setLoading(false)
             })
@@ -23,9 +37,9 @@ const StockList = () => {
                 console.log(error)
             })
         }
-    )
+    ) */
 
-    if (loading && !stocks) {
+    if (loading || !stocks) {
         return(
             <h1>Loading...</h1>
         )
@@ -40,14 +54,15 @@ const StockList = () => {
                             <th>TICKER</th>
                             <th>PRICE</th>
                             <th>VAR %</th>
-                            <th>INTRINSIC VALUE</th>
+{/*                             <th>INTRINSIC VALUE</th> */}
                             <th>DETALLE</th>
                         </tr>
                     </thead>
                     <tbody>
                         {stocks.map((item) => {
                             return(
-                                <Stock stock={item}/>
+                                <Stock stock={item.symbol}/>
+                                //<Stock stock={item}/>
                             )
                         })}
                     </tbody>

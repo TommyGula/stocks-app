@@ -13,3 +13,7 @@
     font-weight: bolder;
 }
 
+.MuiButton-containedPrimary {
+    padding: 0;
+}
+

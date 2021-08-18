@@ -8,21 +8,11 @@ import Stock from '../components/Stock';
 const StockList = () => {
     //const [stocks, setStocks] = useState(undefined)
     const [loading, setLoading] = useState(false)
-    //const stocks = ['AAPL']
     
     const stocks = [
         {
             symbol:"AAPL"
         },
-/*         {
-            symbol:"SPY"
-        },
-        {
-            symbol:"MSFT"
-        },
-        {
-            symbol:"BIIB"
-        }, */
     ]
 
 /*     useEffect(

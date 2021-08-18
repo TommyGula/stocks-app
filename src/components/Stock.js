@@ -10,7 +10,7 @@ import Button from '@material-ui/core/Button';
 
 const Stock = (props) => {
     const [loading, setLoading] = useState(true);
-    const [error, setError] = useState(true);
+    const [error, setError] = useState(false);
     const [data, setData] = useState(undefined);
 
 
@@ -23,7 +23,7 @@ const Stock = (props) => {
             const data = getProfile(stock)
             data.then(data => {
                 setData(data.data)
-                console.log(data.data)
+                console.log("HOLAAA" + data.data)
                 setLoading(false)
             }).catch(err => {
                 console.log(err)
@@ -69,7 +69,7 @@ const Stock = (props) => {
                             </td>
                     } */}
                 <td>
-                    <Button size="medium" variant="contained" color="primary">
+                    <Button size="medium" variant="contained" color="primary" style={{padding:0}}>
                         <Link to={"/stock/" + stock}>VER DETALLE 
                         </Link>
                     </Button>

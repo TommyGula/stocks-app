@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 
 import Profile from '../components/Profile';
 import IncomeStatement from '../components/IncomeStatement';

@@ -1,10 +1,9 @@
 import React, { useState, useContext } from 'react';
-import { useHistory } from 'react-router';
 import Avatar from '@material-ui/core/Avatar';
 import Button from '@material-ui/core/Button';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import TextField from '@material-ui/core/TextField';
-import { Link } from 'react-router-dom';
+import { Link, useHistory } from 'react-router-dom';
 import Grid from '@material-ui/core/Grid';
 import Box from '@material-ui/core/Box';
 import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
@@ -12,7 +11,6 @@ import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
 import firebase from '../Config/Firebase';
-import UserContext from '../Context/UserContext';
 import AlertModal from '../components/AlertModal';
 import Loader from '../components/Loader';
 
@@ -50,10 +48,10 @@ export default function SignUp() {
   const classes = useStyles();
   const [showReport, setShowReport] = useState(false);
   const [message, setMessage] = useState({});
-  const context = useContext(UserContext);
+  const history = useHistory();
   const [form, setForm] = useState({});
   const [loading, setLoading] = useState(false);
-  const history = useHistory();
+  const [acceptPath, setAcceptPath] = useState(undefined);
 
   const handleChange = (e) => {
     let name = e.target.name;
@@ -69,39 +67,28 @@ export default function SignUp() {
     if (Object.keys(form).length === 4) {
             try {
                 const response = await firebase.auth.createUserWithEmailAndPassword(form.email, form.password)
-                await firebase.db.collection("users")
-                .add({
+                await firebase.db.collection("users").doc(response.user.uid)
+                .set({
                     userId:response.user.uid,
                     firstName:form.firstName,
                     lastName:form.lastName,
                     email:form.email,
+                    cash:100000
                 })
                 setLoading(false);
-                setMessage({title:`Usuario ${form.firstName} creado con éxito`, text:""})
+                setMessage({title:`User ${form.firstName} created successfully`, text:"You will be automatically signed in"})
                 setShowReport(true);
-                try {
-                  const response = await firebase.auth.signInWithEmailAndPassword(form.email, form.password);
-                  const userInfo = await firebase.db.collection('users')
-                  .where("userId", "==", response.user.uid)
-                  .get()
-                  context.signInUser(userInfo.docs[0]?.data())
-                  setLoading(false);
-                  history.push('/')
-                } catch(e) {
-                    setLoading(false);
-                    setMessage({title:"Ocurrió un error", text:"No se ha podido inciar sesión correctamente"})
-                    setShowReport(true);
-                }
+                history.push("/signin")
 
             } catch (e) {
                 console.log(e)
                 setLoading(false)
-                setMessage({title:"Ocurrió un error", text:"No se ha podido registrar correctamente"})
+                setMessage({title:"Error", text:"Failed to Sign Up"})
                 setShowReport(true);
             }
     } else {
         setLoading(false)
-        setMessage({title:"Error", text:"Debe completar todos los campos del formulario"})
+        setMessage({title:"Error", text:"All the fields must be completed"})
         setShowReport(true);
 
     }
@@ -184,7 +171,7 @@ export default function SignUp() {
             >
               Sign Up
             </Button>
-            <Grid container justifyContent="flex-end">
+            <Grid container style={{justifyContent:"flex-end"}}>
               <Grid item>
                 <Link to="/signin">
                   Already have an account? Sign in
@@ -201,6 +188,7 @@ export default function SignUp() {
           setShow={setShowReport}
           title={message.title}
           message={message.text}
+          acceptPath={acceptPath}
         />
       </Container>
     );
